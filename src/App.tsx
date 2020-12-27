@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import faker from "faker";
 
-function App() {
+interface FakeData {
+  id: any;
+  name: string;
+  bio: string;
+}
+
+const App: React.FC = () => {
+  const [fakeData, setFakeData] = useState<FakeData[]>([]);
+
+  useEffect(() => {
+    setFakeData(
+      [...Array(1000)].map((key) => {
+        return {
+          id: key,
+          name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+          bio: `${faker.lorem.lines(Math.random() * 100)}`,
+        };
+      })
+    );
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ul>
+        {fakeData.map((row: any) => (
+          <li key={row.id}>
+            <p>{row.name}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
