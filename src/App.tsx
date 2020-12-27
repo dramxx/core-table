@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import faker from "faker";
+import VirtualizedList from "./components/VirtualizedList";
 
-interface FakeData {
+export interface FakeData {
   id: number;
   name: string;
-  bio: string;
+  value: string;
 }
 
 const App: React.FC = () => {
@@ -12,11 +13,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setFakeData(
-      [...Array(1000)].map((placeholder, index) => {
+      [...Array(10000)].map((placeholder, index) => {
         return {
           id: index,
           name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-          bio: `${faker.lorem.lines(Math.random() * 100)}`,
+          value: `${faker.lorem.lines(Math.random() * 100)}`,
         };
       })
     );
@@ -24,13 +25,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <ul>
-        {fakeData.map((row: FakeData) => (
-          <li key={row.id}>
-            <p>{row.name}</p>
-          </li>
-        ))}
-      </ul>
+      <VirtualizedList data={fakeData} />
     </div>
   );
 };
