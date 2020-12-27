@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import faker from "faker";
 import VirtualizedList from "./components/VirtualizedList";
+import VirtualizedTable from "./components/VirtualizedTable";
 
 export interface FakeData {
   id: number;
@@ -26,6 +27,7 @@ const App: React.FC = () => {
   return (
     <div>
       <VirtualizedList data={fakeData} />
+      {/* <VirtualizedTable data={fakeData} /> */}
     </div>
   );
 };
