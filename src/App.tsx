@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import faker from "faker";
 
 interface FakeData {
-  id: any;
+  id: number;
   name: string;
   bio: string;
 }
@@ -12,9 +12,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setFakeData(
-      [...Array(1000)].map((key) => {
+      [...Array(1000)].map((placeholder, index) => {
         return {
-          id: key,
+          id: index,
           name: `${faker.name.firstName()} ${faker.name.lastName()}`,
           bio: `${faker.lorem.lines(Math.random() * 100)}`,
         };
@@ -25,7 +25,7 @@ const App: React.FC = () => {
   return (
     <div>
       <ul>
-        {fakeData.map((row: any) => (
+        {fakeData.map((row: FakeData) => (
           <li key={row.id}>
             <p>{row.name}</p>
           </li>
