@@ -1,19 +1,20 @@
-import React, { useRef } from "react";
+import React, { FC, MutableRefObject, ReactNode, useRef } from "react";
 import {
   AutoSizer,
   List,
   CellMeasurer,
   CellMeasurerCache,
 } from "react-virtualized";
+import { FakeData } from "../App";
 
 export interface ListProps {
-  data: any[];
+  data: FakeData[];
 }
 
-const VirtualizedList: React.FC<any> = (props: ListProps) => {
+const VirtualizedList: FC<ListProps> = (props: ListProps) => {
   const { data } = props;
 
-  const cache = useRef(
+  const cache: MutableRefObject<CellMeasurerCache> = useRef(
     new CellMeasurerCache({
       fixedWidth: true,
       defaultHeight: 100,
@@ -23,15 +24,15 @@ const VirtualizedList: React.FC<any> = (props: ListProps) => {
   return (
     <div style={{ width: "100%", height: "98vh" }}>
       <AutoSizer>
-        {({ width, height }) => (
+        {({ width, height }): ReactNode => (
           <List
             deferredMeasurementCache={cache.current}
             width={width}
             height={height}
             rowHeight={cache.current.rowHeight}
             rowCount={data.length}
-            rowRenderer={({ key, index, style, parent }) => {
-              const dataRow = data[index];
+            rowRenderer={({ key, index, style, parent }): ReactNode => {
+              const dataRow: FakeData = data[index];
               return (
                 <CellMeasurer
                   key={key}

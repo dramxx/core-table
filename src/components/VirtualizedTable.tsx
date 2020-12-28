@@ -1,16 +1,22 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import { AutoSizer, Table, Column } from "react-virtualized";
+import { FakeData } from "../App";
 
 interface TableProps {
-  data: any;
+  data: FakeData[];
+}
+
+interface ColumnContent {
+  label: string;
+  dataKey: string;
+  width: number;
 }
 
 // TODO: map columns to dataKey
-// TODO: typing
-const VirtualizedTable: React.FC<any> = (props: TableProps) => {
+const VirtualizedTable: FC<any> = (props: TableProps) => {
   const { data } = props;
 
-  const columns: any[] = [
+  const columns: ColumnContent[] = [
     {
       label: "ID",
       dataKey: "id",
@@ -31,22 +37,24 @@ const VirtualizedTable: React.FC<any> = (props: TableProps) => {
   return (
     <div style={{ width: "100%", height: "98vh" }}>
       <AutoSizer>
-        {({ width, height }) => (
+        {({ width, height }): ReactNode => (
           <Table
             width={width}
             height={height}
             headerHeight={20}
             rowHeight={50}
             rowCount={data.length}
-            rowGetter={({ index }) => data[index]}
+            rowGetter={({ index }): FakeData => data[index]}
           >
-            {columns.map((column) => (
-              <Column
-                label={column.label}
-                dataKey={column.dataKey}
-                width={column.width}
-              />
-            ))}
+            {columns.map(
+              (column): ReactNode => (
+                <Column
+                  label={column.label}
+                  dataKey={column.dataKey}
+                  width={column.width}
+                />
+              )
+            )}
           </Table>
         )}
       </AutoSizer>

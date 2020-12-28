@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import faker from "faker";
 import VirtualizedList from "./components/VirtualizedList";
 import VirtualizedTable from "./components/VirtualizedTable";
@@ -9,18 +9,20 @@ export interface FakeData {
   value: string;
 }
 
-const App: React.FC = () => {
+const App: FC = () => {
   const [fakeData, setFakeData] = useState<FakeData[]>([]);
 
-  useEffect(() => {
+  useEffect((): void => {
     setFakeData(
-      [...Array(10000)].map((placeholder, index) => {
-        return {
-          id: index,
-          name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-          value: `${faker.lorem.lines(Math.random() * 100)}`,
-        };
-      })
+      [...Array(10000)].map(
+        (placeholder, index): FakeData => {
+          return {
+            id: index,
+            name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+            value: `${faker.lorem.lines(Math.random() * 100)}`,
+          };
+        }
+      )
     );
   }, []);
 
