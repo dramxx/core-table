@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import { AutoSizer, Table, Column } from "react-virtualized";
 import { FakeData } from "../App";
+import "react-virtualized/styles.css";
 
 interface TableProps {
   data: FakeData[];
@@ -12,8 +13,7 @@ interface ColumnContent {
   width: number;
 }
 
-// TODO: map columns to dataKey
-const VirtualizedTable: FC<any> = (props: TableProps) => {
+const VirtualizedTable: FC<TableProps> = (props: TableProps) => {
   const { data } = props;
 
   const columns: ColumnContent[] = [

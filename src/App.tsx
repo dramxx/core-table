@@ -11,6 +11,7 @@ export interface FakeData {
 
 const App: FC = () => {
   const [fakeData, setFakeData] = useState<FakeData[]>([]);
+  const [toggle, setToggle] = useState<boolean>(false);
 
   useEffect((): void => {
     setFakeData(
@@ -28,8 +29,14 @@ const App: FC = () => {
 
   return (
     <div>
-      <VirtualizedList data={fakeData} />
-      {/* <VirtualizedTable data={fakeData} /> */}
+      <button onClick={() => setToggle(!toggle)}>
+        show {toggle ? "table" : "list"}
+      </button>
+      {toggle ? (
+        <VirtualizedList data={fakeData} />
+      ) : (
+        <VirtualizedTable data={fakeData} />
+      )}
     </div>
   );
 };
